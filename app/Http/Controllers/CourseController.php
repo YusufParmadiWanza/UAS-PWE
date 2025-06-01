@@ -32,12 +32,12 @@ class CourseController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'description' => 'required',
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
         ]);
 
-        Course::create($request->all());
+        Course::create($validated);
         return redirect()->route('courses.index')->with('success', 'Kursus berhasil ditambahkan.');
     }
 
@@ -48,12 +48,12 @@ class CourseController extends Controller
 
     public function update(Request $request, Course $course)
     {
-        $request->validate([
-            'title' => 'required',
-            'description' => 'required',
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
         ]);
 
-        $course->update($request->all());
+        $course->update($validated);
         return redirect()->route('courses.index')->with('success', 'Kursus diperbarui.');
     }
 
